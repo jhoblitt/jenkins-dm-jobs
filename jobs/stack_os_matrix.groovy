@@ -2,6 +2,7 @@ import util.Common
 Common.makeFolders(this)
 
 pipelineJob("stack-os-matrix") {
+
   description('Execute a build of EUPS products using `lsstsw`.')
 
   parameters {
@@ -36,6 +37,36 @@ pipelineJob("stack-os-matrix") {
         }
       }
       scriptPath("pipelines/stack_os_matrix.groovy")
+    }
+  }
+
+  /*
+  configure {
+    it << 'definition' {
+    }
+  }
+  */
+
+  /*
+  configure { project ->
+    (project / definition(class: 'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition') << 'lightweight').value = true
+  }
+  */
+
+  /*
+<definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition">
+<lightweight>true</lightweight>
+</definition>
+  configure { project ->
+    project / definition(class: 'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition') {
+      lightweight(true)
+    }
+  }
+  */
+
+  configure { project ->
+    project / definition {
+      lightweight(true)
     }
   }
 }
