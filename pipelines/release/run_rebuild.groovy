@@ -51,6 +51,7 @@ notify.wrap {
         } // withEnv
       } // stage('build')
 
+      /*
       stage('push docs') {
         if (!params.SKIP_DOCS) {
           withCredentials([[
@@ -87,6 +88,7 @@ notify.wrap {
           } // withCredentials
         }
       } // stage('push docs')
+      */
     } // ws
   } // run
 
