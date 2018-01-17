@@ -589,8 +589,8 @@ def void cloneLsstsw() {
 @NonCPS
 def void cloneCiScripts() {
   gitNoNoise(
-    url: 'https://github.com/lsst-sqre/ci-scripts.git',
-    branch: 'master',
+    url: 'https://github.com/jhoblitt/ci-scripts.git',
+    branch: 'tickets/DM-13074-doxygen-homepage',
   )
 }
 
