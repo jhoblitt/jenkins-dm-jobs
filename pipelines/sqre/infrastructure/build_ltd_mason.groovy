@@ -18,7 +18,7 @@ notify.wrap {
   def image      = null
   def hubRepo    = 'lsstsqre/ltd-mason'
   def githubRepo = 'lsst-sqre/ltd-mason'
-  def githubRef  = 'master'
+  def githubRef  = 'tickets/DM-13584-mason-docker'
   def buildDir   = 'docker'
   def ver        = params.LTD_MASON_VER
   def pushLatest = params.LATEST
