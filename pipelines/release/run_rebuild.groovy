@@ -92,7 +92,7 @@ notify.wrap {
     } // ws
   } // run
 
-  node('jenkins-snowflake-1') {
+  node('docker') {
     timeout(time: timelimit, unit: 'HOURS') {
       run()
     }
