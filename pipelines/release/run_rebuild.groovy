@@ -28,6 +28,7 @@ notify.wrap {
   def run = {
     ws('snowflake/release') {
       def cwd = pwd()
+      def bz = null
 
       stage('build') {
         withEnv([
@@ -51,9 +52,63 @@ notify.wrap {
             } // sshagent
           } // util.insideWrap
         } // withEnv
+
+        def manifest = readFile('lsstsw/build/manifest.txt')
+        bx = util.bxxxx(manifest)
       } // stage('build')
 
-      stage('push docs') {
+      def docTemplateDir = "${cwd}/doc_template"
+
+      stage('documenteer build') {
+        if (params.DOCUMENTEER_BUILD) {
+          dir (docTemplateDir) {
+            deleteDir()
+
+            git([
+              url: 'https://github.com/lsst/pipelines_lsst_io',
+              branch: 'tickets/DM-11216',
+            ])
+          }
+
+          util.runDocumenteer(
+            eupsPath: "${cwd}/lsstsw/stack",
+            docTemplateDir: docTemplateDir,
+            eupsTag: bx,
+          )
+
+          dir (docTemplateDir) {
+            publishHTML([
+              allowMissing: false,
+              alwaysLinkToLastBuild: true,
+              keepAll: true,
+              reportDir: '_build/html',
+              reportFiles: 'index.html',
+              reportName: 'doc build',
+              reportTitles: '',
+            ])
+
+            archiveArtifacts([
+              artifacts: '_build/html/**/*',
+              allowEmptyArchive: true,
+              fingerprint: false,
+            ])
+          }
+        } // if
+      } // stage
+
+      stage('documenteer publish') {
+        if (params.DOCUMENTEER_PUBLISH) {
+          dir (docTemplateDir) {
+            util.ltdPush(
+              ltdProduct: "pipelines",
+              repoSlug: "lsst/pipelines_lsst_io",
+              eupsTag: bx,
+            )
+          }
+        } // if
+      } // stage
+
+      stage('push doxygen docs') {
         if (!params.SKIP_DOCS) {
           withCredentials([[
             $class: 'UsernamePasswordMultiBinding',
