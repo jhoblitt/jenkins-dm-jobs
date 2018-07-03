@@ -32,9 +32,24 @@ class Common {
     }
   }
 
+  // folders seems to be missing blocksInheritance() so we have to roll our own
+  static Closure noInherit() {
+    return { folder ->
+      folder / 'properties' / 'com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty' {
+        'inheritanceStrategy'(class: "org.jenkinsci.plugins.matrixauth.inheritance.NonInheritingStrategy")
+      }
+    }
+  }
+
   static void makeFolders(DslFactory dslFactory) {
     dslFactory.folder('sqre') {
       description('SQRE mission related jobs')
+
+      configure Common.noInherit()
+      authorization {
+        permissionAll('lsst-sqre*Leeroy Wranglers')
+        permissionAll('lsst-sqre*SQuaRE')
+      }
     }
 
     dslFactory.folder('sqre/infra') {
@@ -51,6 +66,12 @@ class Common {
 
     dslFactory.folder('release') {
       description('Jobs related to software release management.')
+
+      configure Common.noInherit()
+      authorization {
+        permissionAll('lsst-sqre*Leeroy Wranglers')
+        permissionAll('lsst-sqre*SQuaRE')
+      }
     }
 
     dslFactory.folder('release/docker') {
