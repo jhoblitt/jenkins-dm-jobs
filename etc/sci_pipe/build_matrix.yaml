@@ -94,7 +94,7 @@ versiondb:
 release_tag_org: provingground-moe
 lsstsw:
   github_repo: lsst/lsstsw
-  git_ref: master
+  git_ref: tickets/DM-14011-conda-pkg-update
 ciscripts:
   github_repo: lsst-sqre/ci-scripts
   git_ref: master
