@@ -122,6 +122,6 @@ newinstall:
     repo: lsstsqre/jhoblitt-moe-newinstall
     tag: latest
   github_repo: lsst/lsst
-  git_ref: master
+  git_ref: tickets/DM-14011-conda-pkg-update
 lsst_dm_stack_demo:
   github_repo: provingground-moe/lsst_dm_stack_demo
