@@ -36,7 +36,7 @@ docker_gc:
     git_ref: master
     dir: ''
   docker_registry:
-    repo: lsstsqre/docker-gc
+    repo: provinggroundcurly/docker-gc
 s3sync:
   dockerfile:
     github_repo: lsst-sqre/deploy-publish-release
