@@ -69,5 +69,5 @@ jenkins_swarm_client:
     git_ref: master
     dir: ''
   docker_registry:
-    repo: lsstsqre/jenkins-swarm-client
+    repo: provinggroundcurly/jenkins-swarm-client
     tag: '3.15'
